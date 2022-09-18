@@ -8,7 +8,7 @@ from github import Github
 
 # Speech Engine Initialization
 
-g = Github("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")
+g = Github("token")
 engine = pyttsx3.init()
 voices = engine.getProperty("voices")
 engine.setProperty('voice', voices[1].id)
@@ -53,27 +53,17 @@ if __name__ == '__main__':
     while True:
         # Parsing the query input and putting it into an array or list
         
-        query = parseCommand().lower().split()
-        
-        if query[0] == activationWord:
-            query.pop(0)
+        query = parseCommand().lower()
             
-            # List commands
-            if query[0] == 'say':
-                if 'hello' in query:
-                    speak('Greetings, sir')
-                else:
-                    query.pop(0)
-                    speech = ' '.join(query)
-                    speak(speech)
+        # List commands
+       
+        if 'look up' in query:
+            speak('What would you like me to look up sir?')
+            search_term = parseCommand()
+            webbrowser.get('firefox').open_new(search_term)
 
-            if query[0] == 'search' and query[1] == 'up':
-                speak('Searching...')
-                query = ' '.join(query[2:])
-                webbrowser.get('firefox').open_new(query)
-
-            if query[0] == 'create' and query[1] == 'repo':
-                user = g.get_user()
-                speak("What shall we name the repo sir?")
-                repo_name = parseCommand()
-                user.create_repo(repo_name)
+        if query[0] == 'create' and query[1] == 'repo':
+            user = g.get_user()
+            speak("What shall we name the repo sir?")
+            repo_name = parseCommand()
+            user.create_repo(repo_name)
