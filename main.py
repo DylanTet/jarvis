@@ -12,6 +12,10 @@ voices = engine.getProperty("voices")
 engine.setProperty('voice', voices[1].id)
 activationWord = "jarvis"
 
+# Configure browser used
+
+firefox_path = ""
+
 def speak(text, rate=120):
     engine.setProperty('rate', rate)
     engine.say(text)
@@ -59,4 +63,8 @@ if __name__ == '__main__':
                     query.pop(0)
                     speech = ' '.join(query)
                     speak(speech)
-            
+
+        if query[0] == 'go' and query[1] == 'to':
+            speak('Opening...')
+            query = ' '.join(query[2:])
+            webbrowser.open_new(query)
