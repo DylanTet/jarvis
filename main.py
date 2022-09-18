@@ -8,7 +8,6 @@ from github import Github
 
 # Speech Engine Initialization
 
-g = Github("token")
 engine = pyttsx3.init()
 voices = engine.getProperty("voices")
 engine.setProperty('voice', voices[1].id)
@@ -63,7 +62,9 @@ if __name__ == '__main__':
             webbrowser.get('firefox').open_new(search_term)
 
         if query[0] == 'create' and query[1] == 'repo':
+            g = Github("token")
             user = g.get_user()
+            
             speak("What shall we name the repo sir?")
             repo_name = parseCommand()
             user.create_repo(repo_name)
