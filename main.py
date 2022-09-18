@@ -5,6 +5,7 @@ import wikipedia
 import wolframalpha
 from datetime import datetime
 from github import Github
+import os
 
 # Speech Engine Initialization
 
@@ -47,7 +48,8 @@ def parseCommand():
 # Main loop
 
 if __name__ == '__main__':
-    speak('All systems nominal sir.')
+    
+    speak('All systems nominal sir. What do you need help with?')
     
     while True:
         # Parsing the query input and putting it into an array or list
@@ -61,10 +63,16 @@ if __name__ == '__main__':
             search_term = parseCommand()
             webbrowser.get('firefox').open_new(search_term)
 
-        if query[0] == 'create' and query[1] == 'repo':
+        if 'create repo' in query:
             g = Github("token")
             user = g.get_user()
             
             speak("What shall we name the repo sir?")
+            
             repo_name = parseCommand()
             user.create_repo(repo_name)
+
+        if "open code editor" in query:
+            editor_path = ""
+            os.startfile(editor_path)
+            
