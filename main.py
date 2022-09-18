@@ -4,9 +4,11 @@ import webbrowser
 import wikipedia
 import wolframalpha
 from datetime import datetime
+from github import Github
 
 # Speech Engine Initialization
 
+g = Github("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")
 engine = pyttsx3.init()
 voices = engine.getProperty("voices")
 engine.setProperty('voice', voices[1].id)
@@ -65,7 +67,13 @@ if __name__ == '__main__':
                     speech = ' '.join(query)
                     speak(speech)
 
-        if query[0] == 'go' and query[1] == 'to':
-            speak('Opening...')
-            query = ' '.join(query[2:])
-            webbrowser.get('firefox').open_new(query)
+            if query[0] == 'search' and query[1] == 'up':
+                speak('Searching...')
+                query = ' '.join(query[2:])
+                webbrowser.get('firefox').open_new(query)
+
+            if query[0] == 'create' and query[1] == 'repo':
+                user = g.get_user()
+                speak("What shall we name the repo sir?")
+                repo_name = parseCommand()
+                user.create_repo(repo_name)
