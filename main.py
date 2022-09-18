@@ -14,7 +14,8 @@ activationWord = "jarvis"
 
 # Configure browser used
 
-firefox_path = ""
+firefox_path = r"/Applications/Firefox.app/Contents/MacOS/firefox"
+webbrowser.register('firefox', None, webbrowser.BackgroundBrowser(firefox_path))
 
 def speak(text, rate=120):
     engine.setProperty('rate', rate)
@@ -67,4 +68,4 @@ if __name__ == '__main__':
         if query[0] == 'go' and query[1] == 'to':
             speak('Opening...')
             query = ' '.join(query[2:])
-            webbrowser.open_new(query)
+            webbrowser.get('firefox').open_new(query)
